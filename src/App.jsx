@@ -44,9 +44,10 @@ export default function App() {
       body: JSON.stringify(user)
     }
 
-    fetch('http://localhost:4000/login', loginRequest)
+    fetch('http://localhost:4000/login/', loginRequest)
       .then(res => res.json())
       .then(data => setLoginResponse(data.user))
+      .then(localStorage.setItem(user.username, loginResponse))
   };
 
   // You can safely ignore everything below this line, it's just boilerplate
