@@ -13,7 +13,12 @@ export default function App() {
     // Write your register code here
     if (user.username.length < 5) {
       alert('Username must be at least 5 characters long')
-      return 
+      return; 
+    }
+
+    if(user.password.length < 8) {
+      alert('Password must be at 8 characters or longer')
+      return;
     }
     const registerRequest = {
       method: 'POST',
@@ -31,7 +36,17 @@ export default function App() {
   const login = async (e) => {
     e.preventDefault();
     // Write your login code here
+    const loginRequest = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    }
 
+    fetch('http://localhost:4000/login', loginRequest)
+      .then(res => res.json())
+      .then(data => setLoginResponse(data.user))
   };
 
   // You can safely ignore everything below this line, it's just boilerplate
