@@ -11,7 +11,21 @@ export default function App() {
   const register = async (e) => {
     e.preventDefault();
     // Write your register code here
+    if (user.username.length < 5) {
+      alert('Username must be at least 5 characters long')
+      return 
+    }
+    const registerRequest = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    }
 
+    fetch('http://localhost:4000/register/', registerRequest)
+      .then(res => res.json())
+      .then(data => setRegisterResponse(data.user))
   };
 
   const login = async (e) => {
@@ -59,7 +73,7 @@ export default function App() {
         ]}
       />
 
-      {registerResponse && <p>{registerResponse}</p>}
+      {registerResponse && <p>{registerResponse.username}</p>}
 
       <h1>Login</h1>
 
